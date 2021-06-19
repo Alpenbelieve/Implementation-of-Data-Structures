@@ -2,7 +2,7 @@ package Queue;
 
 import Array.Array;
 
-public class ArrayQueue<E> implements Queue {
+public class ArrayQueue<E> implements Queue<E> {
 
     private Array<E> array;
 
@@ -12,18 +12,6 @@ public class ArrayQueue<E> implements Queue {
 
     public ArrayQueue(int capacity) {
         array = new Array<E>(capacity);
-    }
-
-    public static void main(String[] args) {
-        ArrayQueue<Integer> queue = new ArrayQueue<Integer>();
-        for (int i = 0; i < 20; i++) {
-            queue.enqueue(i);
-            System.out.println(queue);
-            if (i % 3 == 2) {
-                queue.dequeue();
-                System.out.println(queue);
-            }
-        }
     }
 
     @Override
@@ -41,18 +29,18 @@ public class ArrayQueue<E> implements Queue {
     }
 
     @Override
-    public void enqueue(Object o) {
-        array.addLast((E) o);
+    public void enqueue(E o) {
+        array.addLast(o);
     }
 
     //数组队列的出队时间复杂度是O(N)
     @Override
-    public Object dequeue() {
+    public E dequeue() {
         return array.removeFirst();
     }
 
     @Override
-    public Object getFront() {
+    public E getFront() {
         return array.getFirst();
     }
 
@@ -68,5 +56,17 @@ public class ArrayQueue<E> implements Queue {
         }
         builder.append("] tail");
         return builder.toString();
+    }
+
+    public static void main(String[] args) {
+        ArrayQueue<Integer> queue = new ArrayQueue<Integer>();
+        for (int i = 0; i < 20; i++) {
+            queue.enqueue(i);
+            System.out.println(queue);
+            if (i % 3 == 2) {
+                queue.dequeue();
+                System.out.println(queue);
+            }
+        }
     }
 }

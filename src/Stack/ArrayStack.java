@@ -2,7 +2,7 @@ package Stack;
 
 import Array.Array;
 
-public class ArrayStack<E> implements Stack {
+public class ArrayStack<E> implements Stack<E> {
 
     private Array<E> array;
 
@@ -12,18 +12,6 @@ public class ArrayStack<E> implements Stack {
 
     public ArrayStack(int capacity) {
         array = new Array<E>(capacity);
-    }
-
-    public static void main(String[] args) {
-        ArrayStack<Integer> stack = new ArrayStack<Integer>();
-        for (int i = 0; i < 11; i++) {
-            stack.push(i);
-            System.out.println(stack);
-        }
-        for (int i = 0; i < 10; i++) {
-            stack.pop();
-            System.out.println(stack);
-        }
     }
 
     @Override
@@ -41,8 +29,8 @@ public class ArrayStack<E> implements Stack {
     }
 
     @Override
-    public void push(Object element) {
-        array.addLast((E) element);
+    public void push(E element) {
+        array.addLast(element);
     }
 
     @Override
@@ -67,5 +55,17 @@ public class ArrayStack<E> implements Stack {
         }
         builder.append("] top");
         return builder.toString();
+    }
+
+    public static void main(String[] args) {
+        ArrayStack<Integer> stack = new ArrayStack<Integer>();
+        for (int i = 0; i < 11; i++) {
+            stack.push(i);
+            System.out.println(stack);
+        }
+        for (int i = 0; i < 10; i++) {
+            stack.pop();
+            System.out.println(stack);
+        }
     }
 }

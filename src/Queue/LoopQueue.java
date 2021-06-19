@@ -2,7 +2,7 @@ package Queue;
 
 import java.util.Objects;
 
-public class LoopQueue<E> implements Queue {
+public class LoopQueue<E> implements Queue<E> {
 
     private E[] data;
     private int front, tail;
@@ -17,18 +17,6 @@ public class LoopQueue<E> implements Queue {
         front = 0;
         tail = 0;
         size = 0;
-    }
-
-    public static void main(String[] args) {
-        ArrayQueue<Integer> queue = new ArrayQueue<Integer>();
-        for (int i = 0; i < 20; i++) {
-            queue.enqueue(i);
-            System.out.println(queue);
-            if (i % 3 == 2) {
-                queue.dequeue();
-                System.out.println(queue);
-            }
-        }
     }
 
     @Override
@@ -65,7 +53,7 @@ public class LoopQueue<E> implements Queue {
 
     //循环队列的出队时间复杂度是O(1)
     @Override
-    public Object dequeue() {
+    public E dequeue() {
         if (isEmpty())
             throw new IllegalArgumentException("Can't dequeue because queue is empty.");
         E element = data[front];
@@ -77,7 +65,7 @@ public class LoopQueue<E> implements Queue {
     }
 
     @Override
-    public Object getFront() {
+    public E getFront() {
         if (isEmpty())
             throw new IllegalArgumentException("Can't getFront because queue is empty.");
         return data[front];
@@ -96,5 +84,17 @@ public class LoopQueue<E> implements Queue {
         }
         builder.append("] tail");
         return builder.toString();
+    }
+
+    public static void main(String[] args) {
+        ArrayQueue<Integer> queue = new ArrayQueue<Integer>();
+        for (int i = 0; i < 20; i++) {
+            queue.enqueue(i);
+            System.out.println(queue);
+            if (i % 3 == 2) {
+                queue.dequeue();
+                System.out.println(queue);
+            }
+        }
     }
 }

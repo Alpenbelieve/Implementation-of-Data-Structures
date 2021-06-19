@@ -15,20 +15,6 @@ public class Array<E> {
         size = 0;
     }
 
-    public static void main(String[] args) {
-        Array<Integer> array = new Array<Integer>(10);
-        System.out.println(array);
-        for (int i = 0; i < 10; i++) {
-            array.addLast(i);
-        }
-        int[] a = new int[0];
-        System.out.println(array);
-        array.addLast(100);
-        System.out.println(array);
-        array.addLast(1000);
-        System.out.println(array);
-    }
-
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder(String.format("Array: size=%d, capacity=%d\n[", size, data.length));
@@ -113,7 +99,7 @@ public class Array<E> {
         return -1;
     }
 
-    public ArrayList<Integer> findAll(int element) {
+    public ArrayList<Integer> findAll(E element) {
         ArrayList<Integer> result = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             if (data[i].equals(element))//不能用==
@@ -122,7 +108,7 @@ public class Array<E> {
         return result;
     }
 
-    public boolean contains(int element) {
+    public boolean contains(E element) {
         for (int i = 0; i < size; i++) {
             if (data[i].equals(element))//不能用==
                 return false;
@@ -158,7 +144,7 @@ public class Array<E> {
         return result;
     }
 
-    public boolean removeAllElements(int element) {
+    public boolean removeAllElements(E element) {
         ArrayList<Integer> indexes = findAll(element);
         if (indexes.size() == 0)
             return false;
@@ -191,5 +177,19 @@ public class Array<E> {
 
     public E removeLast() {
         return remove(size - 1);
+    }
+
+    public static void main(String[] args) {
+        Array<Integer> array = new Array<Integer>(10);
+        System.out.println(array);
+        for (int i = 0; i < 10; i++) {
+            array.addLast(i);
+        }
+        int[] a = new int[0];
+        System.out.println(array);
+        array.addLast(100);
+        System.out.println(array);
+        array.addLast(1000);
+        System.out.println(array);
     }
 }
