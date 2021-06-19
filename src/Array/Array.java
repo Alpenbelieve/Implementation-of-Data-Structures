@@ -1,3 +1,5 @@
+package Array;
+
 import java.util.ArrayList;
 
 public class Array<E> {
@@ -11,6 +13,20 @@ public class Array<E> {
     public Array(int capacity) {
         data = (E[]) new Object[capacity];
         size = 0;
+    }
+
+    public static void main(String[] args) {
+        Array<Integer> array = new Array<Integer>(10);
+        System.out.println(array);
+        for (int i = 0; i < 10; i++) {
+            array.addLast(i);
+        }
+        int[] a = new int[0];
+        System.out.println(array);
+        array.addLast(100);
+        System.out.println(array);
+        array.addLast(1000);
+        System.out.println(array);
     }
 
     @Override
@@ -40,6 +56,14 @@ public class Array<E> {
         return data[index];
     }
 
+    public E getFirst() {
+        return get(0);
+    }
+
+    public E getLast() {
+        return get(size - 1);
+    }
+
     public void set(int index, E element) {
         if (index < 0 || index >= size) {
             throw new IllegalArgumentException(String.format("Get failed. Index %d is invalid.)", index));
@@ -53,7 +77,7 @@ public class Array<E> {
 
     public void add(E element, int index) {
         if (size == data.length) {
-            throw new IllegalArgumentException("Add element failed. Array is full.");
+            resize(2 * data.length);
         }
         if (index < 0 || index > size) {
             throw new IllegalArgumentException(String.format("Add failed. Index %d is invalid.)", index));
@@ -63,6 +87,14 @@ public class Array<E> {
         }
         data[index] = element;
         size++;
+    }
+
+    private void resize(int newSize) {
+        E[] newData = (E[]) new Object[newSize];
+        for (int i = 0; i < size; i++) {
+            newData[i] = data[i];
+        }
+        data = newData;
     }
 
     public void addLast(E element) {
@@ -120,6 +152,9 @@ public class Array<E> {
         }
         size--;
         data[size] = null;//这一句也可以不用
+
+        if (size == data.length / 4 && size >= 5)//在元素较少时需要避免震荡扩缩容操作
+            resize(data.length / 2);
         return result;
     }
 
@@ -156,22 +191,5 @@ public class Array<E> {
 
     public E removeLast() {
         return remove(size - 1);
-    }
-
-    public static void main(String[] args) {
-        Array<Integer> array = new Array<>(20);
-        System.out.println(array);
-        for (int i = 0; i < 10; i++) {
-            array.addLast(10);
-        }
-        System.out.println(array);
-        array.add(100, 3);
-        System.out.println(array);
-        array.addLast(100);
-        System.out.println(array);
-        array.addFirst(100);
-        System.out.println(array);
-        System.out.println(array.removeAllElements(10));
-        System.out.println(array);
     }
 }
