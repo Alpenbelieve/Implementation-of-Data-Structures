@@ -146,6 +146,23 @@ public class LinkedList<E> {
                 cur = cur.next;
     }
 
+    //递归实现
+    public void removeAllElements2(E e) {
+        dummyHead.next = _removeAllElements2(dummyHead.next, e);
+    }
+
+    private Node _removeAllElements2(Node node, E e) {
+        if (node==null)
+            return null;
+        node.next = _removeAllElements2(node.next, e);
+        if (node.e.equals(e)){
+            size--;
+            return node.next;
+        }else {
+            return node;
+        }
+    }
+
     public E removeFirst() {
         return remove(0);
     }
@@ -167,7 +184,7 @@ public class LinkedList<E> {
 
     public static void main(String[] args) {
         LinkedList<Integer> linkedList = new LinkedList<Integer>(new Integer[]{1,2,1,3,1});
-        linkedList.removeAllElements(1);
+        linkedList.removeAllElements2(1);
         System.out.println(linkedList);
     }
 }
